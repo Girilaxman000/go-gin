@@ -1,10 +1,9 @@
 package main
 
 import (
-	"github.com/Girilaxman000/go-gin/controllers"
 	"github.com/Girilaxman000/go-gin/database"
 	"github.com/Girilaxman000/go-gin/initializers"
-	"github.com/gin-gonic/gin"
+	"github.com/Girilaxman000/go-gin/models"
 )
 
 func init() {
@@ -13,7 +12,6 @@ func init() {
 }
 
 func main() {
-	router := gin.Default()
-	router.POST("/ping", controllers.PostsCreate)
-	router.Run()
+	//create table in database
+	database.DB.AutoMigrate(&models.Post{})
 }

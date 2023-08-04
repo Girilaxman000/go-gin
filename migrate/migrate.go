@@ -13,5 +13,6 @@ func init() {
 
 func main() {
 	//create table in database
-	database.DB.AutoMigrate(&models.Post{})
+	database.DB.AutoMigrate(&models.Product{})
+	database.DB.AutoMigrate(&models.User{})
 }

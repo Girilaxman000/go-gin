@@ -11,7 +11,7 @@ import (
 var DB *gorm.DB
 
 func ConnectToDatabase() {
-	dsn := "root:Laxman12345**#@tcp(127.0.0.1:3306)/laxmandb?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:Laxman12345**#@tcp(127.0.0.1:3306)/ecommerce?charset=utf8mb4&parseTime=True&loc=Local"
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

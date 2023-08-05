@@ -1,15 +1,18 @@
 package main
 
 import (
+	"github.com/Girilaxman000/go-gin/api/routes"
 	"github.com/Girilaxman000/go-gin/database"
 	"github.com/Girilaxman000/go-gin/initializers"
-	"github.com/Girilaxman000/go-gin/routes"
+	"github.com/Girilaxman000/go-gin/migrate"
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
 	initializers.LoadEnvVariables()
 	database.ConnectToDatabase()
+	migrate.SyncDatabase()
+
 }
 
 func main() {

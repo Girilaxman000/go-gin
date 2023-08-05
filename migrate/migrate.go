@@ -1,18 +1,12 @@
-package main
+package migrate
 
 import (
+	"github.com/Girilaxman000/go-gin/api/models"
 	"github.com/Girilaxman000/go-gin/database"
-	"github.com/Girilaxman000/go-gin/initializers"
-	"github.com/Girilaxman000/go-gin/models"
 )
 
-func init() {
-	initializers.LoadEnvVariables()
-	database.ConnectToDatabase()
-}
-
-func main() {
-	//create table in database
-	database.DB.AutoMigrate(&models.Product{})
+func SyncDatabase() {
+	//take dataabase reference and generate table using structs defined in models
 	database.DB.AutoMigrate(&models.User{})
+	database.DB.AutoMigrate(&models.Product{})
 }

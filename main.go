@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// this function runs right before main
 func init() {
 	initializers.LoadEnvVariables()
 	database.ConnectToDatabase()

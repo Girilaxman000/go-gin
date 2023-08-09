@@ -1,7 +1,6 @@
 package dtos
 
-type CreaterUserDto struct {
-}
-
-type GetUsersDto struct {
+type UserLoginDetail struct {
+	Email    string
+	Password string
 }

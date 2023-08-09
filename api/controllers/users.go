@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/Girilaxman000/go-gin/api/dtos"
 	"github.com/Girilaxman000/go-gin/api/models"
 	"github.com/Girilaxman000/go-gin/api/services"
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,25 @@ func UsersCreate(ctx *gin.Context) {
 
 }
 
-func UsersLogin(c *gin.Context) {
-	Users := services.UsersLogin()
-	c.JSON(http.StatusOK, Users)
+func UsersLogin(ctx *gin.Context) {
+	var user dtos.UserLoginDetail
+	err := ctx.BindJSON(&user)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+	userToken, err := services.UsersLogin(user)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"success": userToken,
+	})
+
 }

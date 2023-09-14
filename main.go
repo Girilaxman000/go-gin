@@ -20,5 +20,6 @@ func main() {
 	router := gin.Default()
 	routes.ProductsRoutes(router)
 	routes.UsersRoutes(router)
+	routes.OrdersRoutes(router)
 	router.Run(":3000")
 }

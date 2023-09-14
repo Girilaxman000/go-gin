@@ -1,13 +1,10 @@
 package repository
 
 import (
-	"os"
-	"time"
-
 	"github.com/Girilaxman000/go-gin/api/dtos"
 	"github.com/Girilaxman000/go-gin/api/models"
+	"github.com/Girilaxman000/go-gin/commonfunctions"
 	"github.com/Girilaxman000/go-gin/database"
-	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -33,29 +30,18 @@ func UsersLogin(user dtos.UserLoginDetail) (userToken string, err error) {
 	// 4. create jwt token with help of secret key
 	// 5. send back to user
 
-	// step1
 	err = database.DB.Find(&databaseUser, "email = ?", user.Email).Error
 
 	if err != nil {
-		return "", err // Return an empty string for userToken
+		return "", err
 	}
-	// step2
-	err = bcrypt.CompareHashAndPassword([]byte(databaseUser.Password), []byte(user.Password))
+
+	err = commonfunctions.HashPassword(databaseUser, user)
 	if err != nil {
 		return "", err // Return an empty string for userToken
 	}
 
-	//for custom data to be  stored in jwt
-	claims := jwt.MapClaims{
-		"sub":      databaseUser.ID,
-		"fullName": databaseUser.Email,
-		"exp":      time.Now().Add(time.Hour * 24 * 30).Unix(),
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	// Sign and get the complete encoded token as a string using the secret
-	tokenString, errList := token.SignedString([]byte(os.Getenv("SECRET")))
-
-	return tokenString, errList
+	tokenString, err := commonfunctions.GenerateToken(databaseUser)
+	database.DB.Commit().Debug()
+	return tokenString, err
 }

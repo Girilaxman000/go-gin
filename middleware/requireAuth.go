@@ -34,10 +34,11 @@ func AuthMiddleware(c *gin.Context) {
 
 	claims, ok := commonfunctions.RetrieveClaims(token)
 	if ok && token.Valid {
-		c.JSON(200, gin.H{
-			"message": "Access granted",
-			"sub":     claims.Sub,
-		})
+		// c.JSON(200, gin.H{
+		// 	"message": "Access granted",
+		// 	"sub":     claims.Sub,
+		// })
+		c.Set("user", claims.Sub)
 		c.Next()
 	} else {
 		c.String(401, "Unauthorized")

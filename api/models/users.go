@@ -17,16 +17,14 @@ type User struct {
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
-// Create a global validator instance
+// IsAdmin  bool   `gorm:"default:false" json:"isAdmin"`
+
 var validate *validator.Validate
 
 func init() {
 	validate = validator.New()
 }
 
-// ValidateUser validates the User struct
 func ValidateUser(user User) error {
 	return validate.Struct(user)
 }
-
-// IsAdmin  bool   `gorm:"default:false" json:"isAdmin"`

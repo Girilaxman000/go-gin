@@ -10,9 +10,9 @@ import (
 
 func UsersCreate(user models.User) (err error) {
 	var users models.User
-	hash, errorC := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
-	if errorC != nil {
-		return errorC
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
+	if err != nil {
+		return err
 	}
 	users.Email = user.Email
 	users.Password = string(hash)

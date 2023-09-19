@@ -17,8 +17,3 @@ type Product struct {
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
 }
-
-// TableName returns the custom table name for the Product model
-// func (c *Product) TableName() string {
-// 	return "products" // Change "products" to your desired table name
-// }

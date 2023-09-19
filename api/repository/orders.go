@@ -7,6 +7,5 @@ import (
 
 func OrdersCreate(order models.Orders) (err error) {
 	var databaseOrder models.Orders
-	databaseOrder.Name = order.Name
 	return database.DB.Create(&databaseOrder).Error
 }

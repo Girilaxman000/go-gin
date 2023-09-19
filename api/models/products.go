@@ -8,12 +8,16 @@ import (
 
 type Product struct {
 	ID          uint     `gorm:"primaryKey"`
-	Name        string   `gorm:"name" json:"name" validate:"required,name"`
-	Description string   `gorm:"description" json:"description" validate:"required,description"`
-	ImageURL    string   `gorm:"image_url" json:"image_url" validate:"required,image_url"`
-	Price       float64  `gorm:"price" json:"price" validate:"required,price"`
+	Name        string   `gorm:"column:name" json:"name" validate:"required"`
+	Description string   `gorm:"column:description" json:"description" validate:"required"`
+	ImageURL    string   `gorm:"column:image_url" json:"image_url" validate:"required,url"`
+	Price       float64  `gorm:"column:price" json:"price" validate:"required,gt=0"` //  price should be greater than 0
 	Orders      []Orders `gorm:"foreignKey:ProductId;references:ID"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
+}
+
+func ValidateProduct(product Product) error {
+	return validate.Struct(product)
 }

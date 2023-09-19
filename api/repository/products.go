@@ -11,6 +11,9 @@ func ProductsCreate(products models.Product) (err error) {
 	//Update value inside database table
 	product.Name = products.Name
 	product.Description = products.Description
+	product.ImageURL = products.ImageURL
+	product.Price = products.Price
+
 	//finally save it
 	return database.DB.Create(&product).Error
 }
@@ -37,6 +40,8 @@ func UpdateOneProduct(id string, body models.Product) (err error) {
 	// Update the fields of the existing product with the new values
 	existingProduct.Name = body.Name
 	existingProduct.Description = body.Description
+	existingProduct.ImageURL = body.ImageURL
+	existingProduct.Price = body.Price
 	// Update other fields as needed
 
 	// Save the updated product back to the database

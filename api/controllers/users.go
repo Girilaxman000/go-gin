@@ -29,7 +29,7 @@ func UsersCreate(ctx *gin.Context) {
 	err = services.UsersCreate(users)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error": err,
+			"error": err.Error(),
 		})
 		return
 	}
